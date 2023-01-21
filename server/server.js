@@ -1,25 +1,23 @@
 const express = require('express');
 const path = require('path');
 const app = express();
-const router = require('./routes');
+const apiRouter = require('./routes/api');
 const PORT = 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(__diname, '../client'))
+app.use(express.static(path.resolve(__dirname, '../client')));
 
 
-app.get('/',(req,res) => {
-  res.send('hello world')
-})
-
+app.use('/api', apiRouter);
 
 
 
+// app.get('/', (req,res) => {
+//   res.send('hello world')
+// });
 
-
-
-
+app.use((req, res) => res.status(404).send('This is not the page you\'re looking for...'));
 
 
 
@@ -37,3 +35,5 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
   console.log(`Server listening on port: ${PORT}...`);
 });
+
+module.exports = app;
