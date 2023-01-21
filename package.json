@@ -36,13 +36,10 @@
     "webpack-dev-server": "^4.11.1"
   },
   "dependencies": {
-<<<<<<< HEAD
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@mui/material": "^5.11.5",
-=======
     "concurrently": "^7.6.0",
->>>>>>> 634ecafe47fd4cf276a46add9d24daebc27641a3
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
