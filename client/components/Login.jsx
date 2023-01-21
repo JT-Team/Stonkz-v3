@@ -1,20 +1,20 @@
-import React, { Component, useState, useEffect } from 'react'
+import React, { Component, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 
 const Login = () => {
-
-
-    return (
+  return (
+    <div className='login'>
+      <div className='loginLeft'>
+        <h4>IMAGE HERE</h4>
+      </div>
+      <div className='loginRight'>
         <div>
-            <div>
-                <h4>Hello World</h4>
-            </div>
-            <div>
-              <Button variant="contained">Hello World</Button>
-            </div>
         </div>
-        );
-}
+        <Button variant='contained'>Hello World</Button>
+      </div>
+    </div>
+  );
+};
 
 export default Login;
