@@ -1,40 +1,46 @@
 import React, { Component, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import ChartComponent from './subComponents/ChartComponent.jsx'
 import Navbar from './subComponents/Navbar.jsx'
-import { createChart } from 'lightweight-charts'
 
 const Home = () => {
   const [currStock, setStock] = useState('AAPL')
   const [currStockInfo, setStockInfo] = useState([])
-
+  const [isLoading, setIsLoading] = useState(true)
+  
   useEffect(() => {
-      fetch(`/api?ticker=${currStock}`)
-        .then(res => res.json())
-        .then(data => {
-          console.log(data)
-        })
+    fetchData().then(stock => {
+      let parseData = [];
+      for (let i = 0; i < stock.t.length; i++) {
+        parseData.push({time: stock.t[i], open: stock.o[i], high: stock.h[i], low: stock.l[i], close: stock.c[i]})
+      }
+      return parseData;
+    })
+    .then((parseData) => {
+      setStockInfo([...parseData])
+      setIsLoading(false)
+    })
+    .catch((err) => {
+      console.log("unable to fetch data from api")
+    })
   }, [currStock])
 
-  // const graph = document.getElementsByClassName('graph-container')
-  const chart = createChart({ width: 400, height: 300 });
-  const lineSeries = chart.addLineSeries();
-  lineSeries.setData([
-      { time: '2019-04-11', value: 80.01 },
-      { time: '2019-04-12', value: 96.63 },
-      { time: '2019-04-13', value: 76.64 },
-      { time: '2019-04-14', value: 81.89 },
-      { time: '2019-04-15', value: 74.43 },
-      { time: '2019-04-16', value: 80.01 },
-      { time: '2019-04-17', value: 96.63 },
-      { time: '2019-04-18', value: 76.64 },
-      { time: '2019-04-19', value: 81.89 },
-      { time: '2019-04-20', value: 74.43 },
-  ]);
+  const fetchData = async () => {
+    try {
+      let response = await fetch(`/api?ticker=${currStock}`)
+      let data = await response.json()
+      return data
+    }
+    catch (error) {
+      console.log('Error fetching data from api')
+    }
+  }
 
   return (
     <div>
       <div>{chart}</div>
       <Navbar />
+      { isLoading ? <div>Loading...</div> : <ChartComponent data={currStockInfo}/> }
     </div>
   )
 }
