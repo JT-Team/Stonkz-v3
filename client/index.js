@@ -13,14 +13,12 @@ const root = createRoot(rootElement);
 //render componenets to root
 //renders different components based on route
 root.render(
-    <React.StrictMode>
-        <BrowserRouter>
-            <Routes>
-                <Route index element={<Home />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/signup" element={<Signup />} />
-                <Route path="/settings" element={<Settings />} />
-            </Routes>
-        </BrowserRouter>
-    </React.StrictMode>
+    <BrowserRouter>
+        <Routes>
+            <Route index element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/settings" element={<Settings />} />
+        </Routes>
+    </BrowserRouter>
 )
