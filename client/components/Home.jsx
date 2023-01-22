@@ -15,8 +15,8 @@ const Home = () => {
         })
   }, [currStock])
 
-  const graph = document.getElementsByClassName('graph-container')
-  const chart = createChart(document.getElementById('root'), { width: 400, height: 300 });
+  // const graph = document.getElementsByClassName('graph-container')
+  const chart = createChart({ width: 400, height: 300 });
   const lineSeries = chart.addLineSeries();
   lineSeries.setData([
       { time: '2019-04-11', value: 80.01 },
@@ -33,6 +33,7 @@ const Home = () => {
 
   return (
     <div>
+      <div>{chart}</div>
       <Navbar />
     </div>
   )
