@@ -53,6 +53,9 @@ module.exports = {
         '/api': 'http://localhost:3000',
         '/assets': 'http://localhost:3000',
       },
+      historyApiFallback: {
+        index: '/'
+      }
   },
   devtool: 'inline-source-map',
   plugins: [
