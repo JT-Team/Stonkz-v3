@@ -17,4 +17,6 @@ finnhubController.getStockData,
   (req, res) => res.status(200).json(res.locals.stockData)
 );
 
+
+
 module.exports = router;

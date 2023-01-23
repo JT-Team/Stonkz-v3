@@ -124,6 +124,7 @@ const Home = () => {
   //render
   return (
     <div>
+      {/* <div>{chart}</div> */}
       <Navbar />
       <div className="tickerBar">
         <PageVisibility onChange={handleVisibilityChange}>
