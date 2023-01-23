@@ -6,8 +6,12 @@ const Navbar = () => {
 
     const nav = useNavigate()
 
-    const logout = () => {
-        nav('/login')
+    const logout = async () => {
+        let response = await fetch('/logout')
+        let data = await response.text()
+        if (data === "success") {
+            nav('/login')
+        }
     }
 
     return (
