@@ -25,18 +25,16 @@ const App = () => {
 
 
     return (
-        <React.StrictMode>
-             <BrowserRouter>
-                <Routes>
-                    <Route element = {<PrivateRoutes userInfo = {userInfo}/>}>
-                        <Route index element={<Home />} />
-                        <Route path="/settings" element={<Settings />} />
-                    </Route>
-                    <Route path="/login" element={<Login userInfo = {userInfo} updateUserInfo = {updateUserInfo} ><div>This Is a test for Login Page</div></Login>} />
-                    <Route path="/signup" element={<Signup userInfo = {userInfo} updateUserInfo = {updateUserInfo}/>} />
-                 </Routes>
-            </BrowserRouter>
-    </React.StrictMode>
+        <BrowserRouter>
+            <Routes>
+                <Route element = {<PrivateRoutes userInfo = {userInfo}/>}>
+                    <Route index element={<Home />} />
+                    <Route path="/settings" element={<Settings />} />
+                </Route>
+                <Route path="/login" element={<Login userInfo = {userInfo} updateUserInfo = {updateUserInfo} ><div>This Is a test for Login Page</div></Login>} />
+                <Route path="/signup" element={<Signup userInfo = {userInfo} updateUserInfo = {updateUserInfo}/>} />
+            </Routes>
+        </BrowserRouter>
     )
 }
 

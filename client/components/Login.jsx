@@ -7,7 +7,9 @@ import { FormHelperText } from '@mui/material';
 import { InputLabel } from '@mui/material';
 import { Input } from '@mui/material';
 import { TextField } from '@mui/material';
-//import stonksImg from '../assets/stonkz.jpeg'
+
+
+
 const Login = (props) => {
   const [username, updateUsername] = useState('');
   const [password, updatePassword] = useState('');
@@ -17,7 +19,7 @@ const Login = (props) => {
   return (
     <div className='login'>
       <div className='loginLeft'>
-      {/* <img src={stonksImg} alt="Logo" /> */}
+      {/* <img src=https://media.makeameme.org/created/stonkz.jpg alt="Logo" /> */}
       </div>
       <div className='loginRight'>
         <div className='formControl'>
@@ -56,7 +58,7 @@ const Login = (props) => {
           variant='contained'
           color ='success'
           onClick={async () => {
-            const url = 'http://localhost:3000/register'
+            const url = 'http://localhost:3000/login'
             const loginData = {username: username, password: password};
             const loginStatus = await fetch(url, {
               method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -70,14 +72,10 @@ const Login = (props) => {
               props.updateUserInfo({username: username, password: password, authenticated: true});
               nav('/')
             } else {
-              alert(`submitting username ${username} and password ${password} - user not found`);
+              alert(`Invalid username ${username} and password ${password} - user not found`);
+              
             }
 
-           
-
-            // props.updateUserInfo((prevState) => {
-            //   return { ...prevState, username: username, password: password };
-            // });
             updateUsername('');
             updatePassword('');
             console.log(props.userInfo);

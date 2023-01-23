@@ -17,7 +17,7 @@ const Signup = (props) => {
   return (
     <div className='login'>
       <div className='loginLeft'>
-        <h4>IMAGE HERE</h4>
+         {/* <img src=https://www.cyberdefinitions.com/IMT_images/TENDIES_definition.jpg alt="Logo" /> */}
       </div>
       <div className='loginRight'>
         <div className='formControl'>
