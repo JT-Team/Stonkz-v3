@@ -20,11 +20,9 @@ const PrivateRoutes = (props) => {
 //Creating a wrapper component for all routes and strict mode to hold state from top level
 const App = () => {
 
-    const [userInfo, updateUserInfo] = React.useState({username: undefined, password: undefined, authenticated: false}); 
+  const [userInfo, updateUserInfo] = React.useState({username: undefined, password: undefined, authenticated: false}); 
+  console.log('generating component from app');
 
-    // if (userInfo) {
-
-    // }
 
     return (
         <React.StrictMode>

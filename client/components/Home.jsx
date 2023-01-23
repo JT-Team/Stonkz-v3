@@ -38,6 +38,7 @@ const Home = () => {
 
   return (
     <div>
+      {/* <div>{chart}</div> */}
       <Navbar />
       { isLoading ? <div>Loading...</div> : <ChartComponent data={currStockInfo}/> }
     </div>
