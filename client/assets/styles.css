@@ -1,8 +1,125 @@
 * {
     margin: 0;
     padding: 0;
+    font-family: 'Manrope', sans-serif;
+}
+
+.logo-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 5px;
+    margin-left: 10px;
 }
 
 .logo-img {
-    width: 1em;
+    width: 3em;
+    filter: invert(28%) sepia(22%) saturate(2283%) hue-rotate(116deg) brightness(93%) contrast(98%);
+}
+
+.logo-img2 {
+    width: 2.3em;
+}
+
+#logo-stonk {
+    font-size: 3em;
+    color: #04AA6D;
+}
+
+#logo-z {
+    color: black
+}
+
+.navbar-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+    margin-right: 10px;
+}
+
+.logout-btn {
+    padding-left: 20px;
+    padding-right: 20px;
+    color: white;
+    font-weight: bold;
+    background-color: #04AA6D;
+    margin-right: 5px;
+    border-radius: 20px;
+    border: none;
+    height: 40px;
+    cursor: pointer;
+}
+
+.logout-btn:hover {
+    background-color: #048555;
+}
+
+.settings-btn {
+    padding-left: 13px;
+    padding-right: 13px;
+    font-weight: bold;
+    border-radius: 20px;
+    font-size: 1.5em;
+    cursor: pointer;
+    height: 40px;
+    border-radius: 20px;
+    border: none;
+    background-color: #D9EEE1;
+}
+
+.settings-btn:hover {
+    background-color: #04AA6D;
+    color: white;
+}
+
+.tickerBar {
+    display: block;
+    height: 50px;
+    background-color: #282a35;
+}
+
+.stock-container {
+    width: 50%;
+    margin: auto;
+    margin-top: 50px;
+}
+
+.ticker-btn {
+    height: 50px;
+    font-size: 15px;
+    background-color: transparent;
+    color: white;
+    border: none;
+    border-right: 1px solid black;
+    padding-left: 15px;
+    padding-right: 15px;
+    cursor: pointer;
+}
+
+.comp-name {
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.ticker-text {
+    font-weight: none;
+    font-size: 15px;
+    color: rgb(151, 153, 153);
+}
+
+#price-text {
+    font-size: 22px;
+}
+
+#usd-text {
+    font-size: 15px;
+    color:rgb(113, 113, 113);
 }

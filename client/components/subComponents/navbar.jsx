@@ -6,8 +6,10 @@ const Navbar = () => {
     return (
         <div className="navbar-container">
             <Logo />
-            <button className="logout-btn btn">Log Out</button>
-            <button className="settings-btn btn">&#9881;</button>
+            <div className="button-container">
+                <button className="logout-btn btn">Log Out</button>
+                <button className="settings-btn btn">&#9881;</button>
+            </div>
         </div>
     )
 }
