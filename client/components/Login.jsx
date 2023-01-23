@@ -1,19 +1,22 @@
 import React, { Component, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
-// import Button from '@mui/material/Button';
 
 const Login = () => {
-
-
     return (
-        <div>
-            <div>
-                <h4>Hello World</h4>
-            </div>
-            <div>
-              <Button variant="contained">Hello World</Button>
-            </div>
-        </div>
+      <>
+        <h1>Sign in</h1>
+        <form action="/login" method="post">
+            <section>
+                <label for="username">Username</label>
+                <input id="username" name="username" type="text" autocomplete="username" required autofocus />
+            </section>
+            <section>
+                <label for="current-password">Password</label>
+                <input id="current-password" name="password" type="password" autocomplete="current-password" required />
+            </section>
+            <button type="submit">Sign in</button>
+        </form>
+      </> 
     );
 }
 
