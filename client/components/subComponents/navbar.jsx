@@ -3,11 +3,20 @@ import { useNavigate } from 'react-router-dom';
 import Logo from './Logo.jsx'
 
 const Navbar = () => {
+
+    const nav = useNavigate()
+
+    const logout = () => {
+        nav('/login')
+    }
+
     return (
         <div className="navbar-container">
             <Logo />
-            <button className="logout-btn btn">Log Out</button>
-            <button className="settings-btn btn">&#9881;</button>
+            <div className="button-container">
+                <button onClick={logout} className="logout-btn btn">Log Out</button>
+                <button className="settings-btn btn">&#9881;</button>
+            </div>
         </div>
     )
 }
