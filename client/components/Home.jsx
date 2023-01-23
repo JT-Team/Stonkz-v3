@@ -127,6 +127,7 @@ const Home = () => {
       {/* <div>{chart}</div> */}
       <Navbar />
       <div className="tickerBar">
+        { isLoading ? <div>Loading...</div> :         
         <PageVisibility onChange={handleVisibilityChange}>
           {pageIsVisible && (
             <Ticker offset="run-in" speed={10} mode="chain">
@@ -137,7 +138,7 @@ const Home = () => {
               )}
             </Ticker>
           )}
-        </PageVisibility>
+        </PageVisibility>}
       </div>
       <div className="mainpage-container">
         <div className="stock-container">
