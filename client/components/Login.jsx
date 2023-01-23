@@ -7,7 +7,7 @@ import { FormHelperText } from '@mui/material';
 import { InputLabel } from '@mui/material';
 import { Input } from '@mui/material';
 import { TextField } from '@mui/material';
-
+//import stonksImg from '../assets/stonkz.jpeg'
 const Login = (props) => {
   const [username, updateUsername] = useState('');
   const [password, updatePassword] = useState('');
@@ -17,7 +17,7 @@ const Login = (props) => {
   return (
     <div className='login'>
       <div className='loginLeft'>
-        <h4>IMAGE HERE</h4>
+      {/* <img src={stonksImg} alt="Logo" /> */}
       </div>
       <div className='loginRight'>
         <div className='formControl'>
@@ -55,11 +55,29 @@ const Login = (props) => {
         <Button
           variant='contained'
           color ='success'
-          onClick={() => {
-            alert(`submitting username ${username} and password ${password}`);
-            props.updateUserInfo((prevState) => {
-              return { ...prevState, username: username, password: password };
+          onClick={async () => {
+            const url = 'http://localhost:3000/register'
+            const loginData = {username: username, password: password};
+            const loginStatus = await fetch(url, {
+              method: 'POST', // *GET, POST, PUT, DELETE, etc.
+              mode: 'cors', // no-cors, *cors, same-origin
+              headers: {'Content-Type': 'application/json'},
+              body: JSON.stringify(loginData),
             });
+            const parsedLoginStatus = await loginStatus.text()
+            console.log(parsedLoginStatus); 
+            if (parsedLoginStatus === 'success') {
+              props.updateUserInfo({username: username, password: password, authenticated: true});
+              nav('/')
+            } else {
+              alert(`submitting username ${username} and password ${password} - user not found`);
+            }
+
+           
+
+            // props.updateUserInfo((prevState) => {
+            //   return { ...prevState, username: username, password: password };
+            // });
             updateUsername('');
             updatePassword('');
             console.log(props.userInfo);

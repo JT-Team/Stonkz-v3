@@ -6,10 +6,12 @@ const authRouter = require('./routes/auth');
 const apiRouter = require('./routes/api');
 const app = express();
 const PORT = 3000;
+const cors = require('cors');
 require('dotenv').config();
 
 
 app.use(express.json());
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.resolve(__dirname, '../client')));
 
@@ -47,6 +49,7 @@ app.use((err, req, res, next) => {
   console.log(errorObj.log);
   return res.status(errorObj.status).json(errorObj.message);
 });
+
 
 
 app.listen(PORT, () => {
