@@ -57,6 +57,9 @@ module.exports = {
         '/protected-route': 'http://localhost:3000',
         '/logout': 'http://localhost:3000',
       },
+      historyApiFallback: {
+        index: '/'
+      }
   },
   devtool: 'inline-source-map',
   plugins: [
