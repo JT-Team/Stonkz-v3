@@ -1,5 +1,6 @@
 body {
     text-align: center;
+   
 
 }
 .login {
@@ -9,6 +10,7 @@ body {
     justify-content: center;
     margin: 10px; 
     padding: 25px;
+    min-height: 100vh
 }
 .loginLeft {
     margin-right: 100px;

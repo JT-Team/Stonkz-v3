@@ -11,7 +11,7 @@ import { Navigate, Outlet } from 'react-router-dom'
 
 //creating a private routes wrapper that will aid in redirecting to the correct page (home or login page)
 const PrivateRoutes = (props) => {
-    let authentication = props.userInfo;
+    let authentication = props.userInfo.authenticated;
     return (
         authentication ? <Outlet/> : <Navigate to = '/login'/>
     )
@@ -20,7 +20,7 @@ const PrivateRoutes = (props) => {
 //Creating a wrapper component for all routes and strict mode to hold state from top level
 const App = () => {
 
-    const [userInfo, updateUserInfo] = React.useState(undefined); 
+    const [userInfo, updateUserInfo] = React.useState({username: undefined, password: undefined, authenticated: false}); 
 
     // if (userInfo) {
 
@@ -35,7 +35,7 @@ const App = () => {
                         <Route path="/settings" element={<Settings />} />
                     </Route>
                     <Route path="/login" element={<Login userInfo = {userInfo} updateUserInfo = {updateUserInfo} ><div>This Is a test for Login Page</div></Login>} />
-                    <Route path="/signup" element={<Signup />} />
+                    <Route path="/signup" element={<Signup userInfo = {userInfo} updateUserInfo = {updateUserInfo}/>} />
                  </Routes>
             </BrowserRouter>
     </React.StrictMode>

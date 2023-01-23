@@ -1,5 +1,5 @@
 import React, { Component, useState, useEffect, useReducer } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import { FormControl } from '@mui/material';
 import { FormLabel } from '@mui/material';
@@ -8,29 +8,11 @@ import { InputLabel } from '@mui/material';
 import { Input } from '@mui/material';
 import { TextField } from '@mui/material';
 
-const useIsBoxChecked = () => {
-  const [isChecked, setIsChecked] = React.useState(false);
-  return { isChecked, turnIsCheckedOn: () => setIsChecked(true) };
-};
-
 const Login = (props) => {
   const [username, updateUsername] = useState('');
   const [password, updatePassword] = useState('');
 
-  // const [loggedInState, updateLoggedIn] = useState(loggedInState);
-  // const currentUser = useCurrentUser(); // This doesn't actually exist
-
-  const [loggedIn, updateLoggedIn] = useState(false);
-
-  // const [isChecked, setIsChecked] = useState(false);
-  // const turnIsCheckedOn = () => setIsChecked(true);
-
-  const { isChecked, turnIsCheckedOn } = useIsBoxChecked();
-
-  const loggedInCheckboxOnChange = (loggedIn) => {
-    updateLoggedIn(loggedIn);
-    //  updateLoggedIn(previousLoggedInState => ({...previousLoggedInState, loggedIn: loggedIn}));
-  };
+  const nav = useNavigate(); 
 
   return (
     <div className='login'>
@@ -42,7 +24,9 @@ const Login = (props) => {
           <FormControl>
             <InputLabel htmlFor='my-email'>Email</InputLabel>
             <Input
-              onChange={(e) => {updateUsername(`${e.target.value}`)}}
+              onChange={(e) => {
+                updateUsername(`${e.target.value}`);
+              }}
               id='my-email'
               aria-describedby='my-helper-text'
               value={username}
@@ -56,7 +40,9 @@ const Login = (props) => {
           <FormControl>
             <InputLabel htmlFor='my-pass'>Password</InputLabel>
             <Input
-              onChange={(e) => {updatePassword(`${e.target.value}`)}}
+              onChange={(e) => {
+                updatePassword(`${e.target.value}`);
+              }}
               id='my-pass'
               aria-describedby='my-helper-text'
               value={password}
@@ -68,20 +54,26 @@ const Login = (props) => {
         </div>
         <Button
           variant='contained'
+          color ='success'
           onClick={() => {
-            alert(`submitting username ${username} and password ${password}` )
-            props.updateUserInfo(true);
+            alert(`submitting username ${username} and password ${password}`);
+            props.updateUserInfo((prevState) => {
+              return { ...prevState, username: username, password: password };
+            });
+            updateUsername('');
+            updatePassword('');
             console.log(props.userInfo);
           }}
         >
           Login
         </Button>
-
         <div>
-          <div>{`My checkbox is ${isChecked ? 'on' : 'off'}`}</div>
-          <button onClick={turnIsCheckedOn}>Turn on checkbox</button>
-        </div>
+      <Button
+      onClick = {() => nav('/signup')}
+      >Don't have an account? Sign Up!</Button>
       </div>
+      </div>
+      
     </div>
   );
 };
