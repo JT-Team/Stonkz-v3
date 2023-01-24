@@ -66,7 +66,7 @@ const Login = (props) => {
           variant='contained'
           color ='success'
           onClick={async () => {
-            const url = 'http://localhost:3000/login'
+            const url = 'http://localhost:3000/user/login'
             const loginData = {username: username, password: password};
             const loginStatus = await fetch(url, {
               method: 'POST',

@@ -52,10 +52,8 @@ module.exports = {
       proxy: {
         '/api': 'http://localhost:3000',
         '/assets': 'http://localhost:3000',
-        '/login': 'http://localhost:3000',
-        '/register': 'http://localhost:3000',
         '/protected-route': 'http://localhost:3000',
-        '/logout': 'http://localhost:3000',
+        '/user': 'http://localhost:3000'
       },
       historyApiFallback: {
         index: '/'

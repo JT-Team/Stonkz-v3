@@ -60,7 +60,7 @@ const Signup = (props) => {
           color = 'success'
           onClick={async () => {
 
-            const url = 'http://localhost:3000/register'
+            const url = 'http://localhost:3000/user/register'
             const loginData = {username: username, password: password};
             const response = await fetch(url, {
               method: 'POST', // *GET, POST, PUT, DELETE, etc.

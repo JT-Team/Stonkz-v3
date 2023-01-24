@@ -125,7 +125,7 @@ const Home = () => {
   //fetches the stocks news 
   const fetchStockNews = async () => {
     try {
-      let response = await fetch(`https://stocknewsapi.com/api/v1?tickers=${currStock}&items=3&page=1&token=o2tzmxblhimm5ryj0kmzuiitetygsqpqg9qgivan`)
+      let response = await fetch(`https://stocknewsapi.com/api/v1?tickers=${currStock}&items=3&page=1&token=o2tzmxblhimm5ryj0kmzuiitetygsqpqg9qgivan`, {method:'GET', mode: 'no-cors'})
       let data = await response.json()
       return data
       }
