@@ -25,8 +25,8 @@ const App = () => {
 
   useEffect(() => {
     if (document.cookie) {
-      console.log('here')
-      updateUserInfo(Object.assign({}, ...userInfo, {authenticated: true}))
+      console.log('in useEffect and has document.cookie')
+      updateUserInfo({...userInfo, authenticated : true}) //
     }
   }, [])
 
