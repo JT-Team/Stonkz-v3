@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { Component, useState, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './components/Home.jsx'
@@ -20,25 +20,27 @@ const PrivateRoutes = (props) => {
 //Creating a wrapper component for all routes and strict mode to hold state from top level
 const App = () => {
 
-    const [userInfo, updateUserInfo] = React.useState({username: undefined, password: undefined, authenticated: false}); 
+  const [userInfo, updateUserInfo] = React.useState({username: undefined, password: undefined, authenticated: false}); 
+  console.log('generating component from app');
 
-    // if (userInfo) {
-
-    // }
+  useEffect(() => {
+    if (document.cookie) {
+      console.log('here')
+      updateUserInfo(Object.assign({}, ...userInfo, {authenticated: true}))
+    }
+  }, [])
 
     return (
-        <React.StrictMode>
-             <BrowserRouter>
-                <Routes>
-                    <Route element = {<PrivateRoutes userInfo = {userInfo}/>}>
-                        <Route index element={<Home />} />
-                        <Route path="/settings" element={<Settings />} />
-                    </Route>
-                    <Route path="/login" element={<Login userInfo = {userInfo} updateUserInfo = {updateUserInfo} ><div>This Is a test for Login Page</div></Login>} />
-                    <Route path="/signup" element={<Signup userInfo = {userInfo} updateUserInfo = {updateUserInfo}/>} />
-                 </Routes>
-            </BrowserRouter>
-    </React.StrictMode>
+        <BrowserRouter>
+            <Routes>
+                <Route element = {<PrivateRoutes userInfo = {userInfo}/>}>
+                    <Route index element={<Home />} />
+                    <Route path="/settings" element={<Settings />} />
+                </Route>
+                <Route path="/login" element={<Login userInfo = {userInfo} updateUserInfo = {updateUserInfo} ><div>This Is a test for Login Page</div></Login>} />
+                <Route path="/signup" element={<Signup userInfo = {userInfo} updateUserInfo = {updateUserInfo}/>} />
+            </Routes>
+        </BrowserRouter>
     )
 }
 

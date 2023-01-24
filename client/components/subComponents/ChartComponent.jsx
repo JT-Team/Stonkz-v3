@@ -1,6 +1,7 @@
 import React, { Component, useState, useEffect } from 'react'
 import Chart from '@qognicafinance/react-lightweight-charts'
 
+//check @qognicafinance/react-lightweight-charts on github for the stock chart features
 class ChartComponent extends Component {
     constructor(props) {
       super(props);
