@@ -7,6 +7,7 @@ import { FormHelperText } from '@mui/material';
 import { InputLabel } from '@mui/material';
 import { Input } from '@mui/material';
 import { TextField } from '@mui/material';
+import Logo from './subComponents/Logo.jsx';
 
 const Signup = (props) => {
   const [username, updateUsername] = useState('');
@@ -17,10 +18,11 @@ const Signup = (props) => {
   return (
     <div className='login'>
       <div className='loginLeft'>
-         {/* <img src=https://www.cyberdefinitions.com/IMT_images/TENDIES_definition.jpg alt="Logo" /> */}
+        <img src='https://media.makeameme.org/created/stonkz.jpg' alt="Logo" />
       </div>
       <div className='loginRight'>
         <div className='formControl'>
+          <Logo />
           <FormControl>
             <InputLabel htmlFor='my-email'>Email</InputLabel>
             <Input
@@ -40,6 +42,7 @@ const Signup = (props) => {
           <FormControl>
             <InputLabel htmlFor='my-pass'>Password</InputLabel>
             <Input
+              type="password"
               onChange={(e) => {
                 updatePassword(`${e.target.value}`);
               }}

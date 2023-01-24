@@ -1,3 +1,5 @@
+// this is making isAuthenticated into middleware
+
 module.exports.isAuth = (req, res, next) => {
   if (req.isAuthenticated())  {
     next();

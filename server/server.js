@@ -1,4 +1,5 @@
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const path = require('path');
 const session = require('express-session');
 const passport = require('passport');
@@ -9,13 +10,14 @@ const PORT = 3000;
 const cors = require('cors');
 require('dotenv').config();
 
-
+// middleware
 app.use(express.json());
+app.use(cookieParser());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.resolve(__dirname, '../client')));
 
-// Session middleware
+// Session middleware - look into express sessions 
 app.use(session({
   secret: process.env.SECRET,
   resave: false,
@@ -30,7 +32,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-
+// routes
 app.use(authRouter);
 app.use('/api', apiRouter);
 

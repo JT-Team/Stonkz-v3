@@ -17,6 +17,7 @@ const StockDisplay = (props) => {
     })
   }, [])
 
+  //helper function to change the currStock state in Home
   const changeStock = () => {
     props.seeStock(props.ticker)
   }

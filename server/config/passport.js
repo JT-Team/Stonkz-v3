@@ -1,3 +1,5 @@
+// this is passport js configuration -> if you're not familiar with this check out some youtube videos, the documentation isn't great
+
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('./database');
