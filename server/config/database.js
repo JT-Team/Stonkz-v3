@@ -1,12 +1,12 @@
+// this is the mongo database setup
+
 const mongoose = require('mongoose');
 require('dotenv').config();
 const MONGO_URI = process.env.DB_STRING;
 
 mongoose.connect(MONGO_URI, {
-  // options for the connect method to parse the URI
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  // sets the name of the DB that our collections are part of
   dbName: 'Stonkz'
 })
   .then(() => console.log('Connected to Mongo DB.'))
@@ -14,7 +14,6 @@ mongoose.connect(MONGO_URI, {
 
 const Schema = mongoose.Schema;
 
-// Creates simple schema for a User.  The hash and salt are derived from the user's given password when they register
 const UserSchema = new Schema({
     username: String,
     hash: String,

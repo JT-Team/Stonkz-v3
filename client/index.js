@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { Component, useState, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './components/Home.jsx'
@@ -23,6 +23,12 @@ const App = () => {
   const [userInfo, updateUserInfo] = React.useState({username: undefined, password: undefined, authenticated: false}); 
   console.log('generating component from app');
 
+  useEffect(() => {
+    if (document.cookie) {
+      console.log('here')
+      updateUserInfo(Object.assign({}, ...userInfo, {authenticated: true}))
+    }
+  }, [])
 
     return (
         <BrowserRouter>

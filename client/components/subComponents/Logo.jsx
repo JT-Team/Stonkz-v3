@@ -1,6 +1,7 @@
 import React, { Component, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 
+//Our StonkZ logo
 const Logo = () => {
     return (
         <div className="logo-container">

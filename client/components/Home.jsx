@@ -5,14 +5,18 @@ import Navbar from './subComponents/Navbar.jsx'
 import StockDisplay from './subComponents/StockDisplay.jsx'
 import Ticker from 'react-ticker'
 import PageVisibility from 'react-page-visibility'
+import NewsComponent from './subComponents/NewsComponent.jsx'
 
 const Home = () => {
+
+  //big list of states... sorry...
   const [currStock, setStock] = useState('AAPL')
   const [stockStore, setStockStore] = useState({})
   const [currStockInfo, setStockInfo] = useState([])
   const [stockChange, setStockChange] = useState({})
   const [priceChange, setPriceChange] = useState(0)
   const [percentChange, setPercentChange] = useState(0)
+  const [news, setNews] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [pageIsVisible, setPageIsVisible] = useState(true)
   
@@ -65,6 +69,21 @@ const Home = () => {
     .catch((error) => {
       console.log(`fetchStock: unable to grab data from server- ${error}`)
     })
+
+     //fetch list of news 
+     fetchStockNews().then(news => {
+      let parseData = [];
+      for (let i = 0; i < news.data.length; i++) {
+        parseData.push(news.data[i]);
+      }
+      return parseData;
+    })
+      .then((parseData) => {
+        setNews([...parseData])
+      })
+      .catch((error) => {
+        console.log(`fetchStockNews: unable to grab data from server- ${error}`)
+      })
   }, [currStock])
 
   //fetches the list of stocks
@@ -103,6 +122,18 @@ const Home = () => {
     }
   }
 
+  //fetches the stocks news 
+  const fetchStockNews = async () => {
+    try {
+      let response = await fetch(`https://stocknewsapi.com/api/v1?tickers=${currStock}&items=3&page=1&token=o2tzmxblhimm5ryj0kmzuiitetygsqpqg9qgivan`)
+      let data = await response.json()
+      return data
+      }
+    catch (error) {
+      console.log('Error fetching news from api')
+      }
+    }
+
   //helper function to pull the interest stock ticker up to change state
   const helper = (arg) => {
     setIsLoading(true)
@@ -110,20 +141,20 @@ const Home = () => {
     setStock(arg)
   }
 
+  //will refresh the ticker bar whenever you go in and out of the page
   const handleVisibilityChange = (isVisible) => {
     setPageIsVisible(isVisible)
   }
 
+  // creates all the buttons on the ticker bar on top
   const boxes = [];
   for (let key in stockStore) {
     boxes.push(<StockDisplay ticker={key} stockName={stockStore[key]} seeStock={helper}/>)
   }
 
-  console.log(currStock)
-
   //render
   return (
-    <div>
+    <div className="homepage-container">
       {/* <div>{chart}</div> */}
       <Navbar />
       <div className="tickerBar">
@@ -147,6 +178,8 @@ const Home = () => {
           {priceChange > 0 ? <p style={{color: "green"}}>{`+${priceChange} (${percentChange}%)`}</p> : <p style={{color: "red"}}>{`-${priceChange} (${percentChange}%)`}</p>}
           { isLoading ? <div>Loading...</div> : <ChartComponent data={currStockInfo}/> }
         </div>
+        <h3>News</h3>
+        <NewsComponent news={news} />
       </div>
     </div>
   )
