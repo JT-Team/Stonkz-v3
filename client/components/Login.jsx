@@ -1,12 +1,7 @@
 import React, { Component, useState, useEffect, useReducer } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
-import { FormControl } from '@mui/material';
-import { FormLabel } from '@mui/material';
-import { FormHelperText } from '@mui/material';
-import { InputLabel } from '@mui/material';
-import { Input } from '@mui/material';
-import { TextField } from '@mui/material';
+import { FormControl, FormLabel, FormHelperText, InputLabel, Input, TextField} from '@mui/material';
 import Logo from './subComponents/Logo.jsx';
 // Would you take a look at these imports! 
 
@@ -21,6 +16,29 @@ const Login = (props) => {
   //check react router documentation for the useNavigate functionality! 
   const nav = useNavigate(); 
 
+  const loginlogic = async () => {
+    const url = 'http://localhost:3000/user/login'
+    const loginData = {username: username, password: password};
+    const loginStatus = await fetch(url, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(loginData),
+    });
+    const parsedLoginStatus = await loginStatus.text()
+    console.log(parsedLoginStatus); 
+    if (parsedLoginStatus === 'success') {
+      props.updateUserInfo({username: username, password: password, authenticated: true});
+      nav('/')
+    } else {
+      alert(`Invalid username ${username} and password ${password} - user not found`);
+      
+    }
+
+    updateUsername('');
+    updatePassword('');
+    console.log(props.userInfo);
+  }
 
   return (
     <div className='login'>
@@ -65,29 +83,7 @@ const Login = (props) => {
         <Button
           variant='contained'
           color ='success'
-          onClick={async () => {
-            const url = 'http://localhost:3000/user/login'
-            const loginData = {username: username, password: password};
-            const loginStatus = await fetch(url, {
-              method: 'POST',
-              mode: 'cors',
-              headers: {'Content-Type': 'application/json'},
-              body: JSON.stringify(loginData),
-            });
-            const parsedLoginStatus = await loginStatus.text()
-            console.log(parsedLoginStatus); 
-            if (parsedLoginStatus === 'success') {
-              props.updateUserInfo({username: username, password: password, authenticated: true});
-              nav('/')
-            } else {
-              alert(`Invalid username ${username} and password ${password} - user not found`);
-              
-            }
-
-            updateUsername('');
-            updatePassword('');
-            console.log(props.userInfo);
-          }}
+          onClick={loginlogic}
         >
           Login
         </Button>

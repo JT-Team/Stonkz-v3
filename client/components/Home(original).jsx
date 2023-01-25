@@ -7,21 +7,18 @@ import StockDisplay from './subComponents/StockDisplay.jsx'
 import Ticker from 'react-ticker'
 import PageVisibility from 'react-page-visibility'
 import NewsComponent from './subComponents/NewsComponent.jsx'
-import { setIsLoading, setStockInfo, fetchStockData, fetchStockChange, fetchStock, setStock} from '../stockSlice.js'
 
 const Home = () => {
 
-  const {currStockInfo, isLoading, stockChange, priceChange, percentChange, stockStore ,currStock} = useSelector((state=>state.stocks))
-  const dispatch = useDispatch();
   //big list of states... sorry...
-  // const [currStock, setStock] = useState('AAPL')
-  // const [stockStore, setStockStore] = useState({})
-  // const [currStockInfo, setStockInfo] = useState([])
-  // const [stockChange, setStockChange] = useState({})
-  // const [priceChange, setPriceChange] = useState(0)
-  // const [percentChange, setPercentChange] = useState(0)
+  const [currStock, setStock] = useState('AAPL')
+  const [stockStore, setStockStore] = useState({})
+  const [currStockInfo, setStockInfo] = useState([])
+  const [stockChange, setStockChange] = useState({})
+  const [priceChange, setPriceChange] = useState(0)
+  const [percentChange, setPercentChange] = useState(0)
   const [news, setNews] = useState([])
-  // const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true)
   const [pageIsVisible, setPageIsVisible] = useState(true)
   
   useEffect(() => {
@@ -39,11 +36,40 @@ const Home = () => {
       timestampStart = timestampStart - (2 * 86400)
       timestampNow = timestampStart + 86399
     }
-    
-    dispatch(fetchStockData(timestampStart, timestampNow))
-    dispatch(fetchStockChange())
-    dispatch(fetchStock())
 
+    //fetch and parse data from finnhub API
+    fetchStockData(timestampStart, timestampNow).then(stock => {
+      let parseData = [];
+      for (let i = 0; i < stock.t.length; i++) {
+        parseData.push({time: stock.t[i], open: stock.o[i], high: stock.h[i], low: stock.l[i], close: stock.c[i]})
+      }
+      return parseData;
+    })
+    .then((parseData) => {
+      setStockInfo([...parseData])
+      setIsLoading(false)
+    })
+    .catch((err) => {
+      console.log("unable to fetch data from api")
+    })
+
+    //fetch current stock change info
+    fetchStockChange().then(data => {
+      setStockChange(data)
+      setPriceChange(Math.round((data.c - data.o) * 100 ) / 100)
+      setPercentChange(Math.round(data.dp * 100) / 100)
+    })
+    .catch((error) => {
+      console.log(`fetchStockChange: unable to grab data from server- ${error}`)
+    })
+
+    //fetch list of stocks
+    fetchStock().then(listStock => {
+      setStockStore(listStock)
+    })
+    .catch((error) => {
+      console.log(`fetchStock: unable to grab data from server- ${error}`)
+    })
 
      //fetch list of news 
      fetchStockNews().then(news => {
@@ -59,9 +85,45 @@ const Home = () => {
       .catch((error) => {
         console.log(`fetchStockNews: unable to grab data from server- ${error}`)
       })
-  }, [])
+  }, [currStock])
 
-  
+  //fetches the list of stocks
+  const fetchStock = async () => {
+    try {
+      let response = await fetch('/api/stocks')
+      let data = await response.json()
+      return data
+    }
+    catch (error) {
+      console.log('Error fetching stocks from filesystem')
+    }
+  }
+
+  //fetches the focus stock data
+  const fetchStockData = async (timeStart, timeNow) => {
+    try {
+      let response = await fetch(`/api?ticker=${currStock}&start=${timeStart}&now=${timeNow}`)
+      let data = await response.json()
+      return data
+    }
+    catch (error) {
+      console.log('Error fetching data from api')
+    }
+  }
+
+  //fetches the stock's current change info
+  const fetchStockChange = async () => {
+    try {
+      let response = await fetch(`/api/quote?ticker=${currStock}`)
+      let data = await response.json()
+      return data
+    }
+    catch (error) {
+      console.log(`fetchStockChange: unable to grab data from server- ${error}`)
+    }
+  }
+
+  //fetches the stocks news 
   const fetchStockNews = async () => {
     try {
       let response = await fetch(`https://stocknewsapi.com/api/v1?tickers=${currStock}&items=3&page=1&token=o2tzmxblhimm5ryj0kmzuiitetygsqpqg9qgivan`, {method:'GET', mode: 'no-cors'})
@@ -75,9 +137,9 @@ const Home = () => {
 
   //helper function to pull the interest stock ticker up to change state
   const helper = (arg) => {
-    dispatch(setIsLoading(true))
-    dispatch(setStockInfo([]))
-    dispatch(setStock(arg))
+    setIsLoading(true)
+    setStockInfo([])
+    setStock(arg)
   }
 
   //will refresh the ticker bar whenever you go in and out of the page
