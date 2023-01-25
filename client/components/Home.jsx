@@ -13,15 +13,15 @@ const Home = () => {
 
   const {currStockInfo, isLoading, stockChange, priceChange, percentChange, stockStore ,currStock} = useSelector((state=>state.stocks))
   const dispatch = useDispatch();
-  //big list of states... sorry...
+  // big list of states... sorry...
   // const [currStock, setStock] = useState('AAPL')
   // const [stockStore, setStockStore] = useState({})
   // const [currStockInfo, setStockInfo] = useState([])
   // const [stockChange, setStockChange] = useState({})
   // const [priceChange, setPriceChange] = useState(0)
   // const [percentChange, setPercentChange] = useState(0)
-  const [news, setNews] = useState([])
   // const [isLoading, setIsLoading] = useState(true)
+  const [news, setNews] = useState([])
   const [pageIsVisible, setPageIsVisible] = useState(true)
   
   useEffect(() => {
