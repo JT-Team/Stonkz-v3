@@ -8,8 +8,14 @@ const User = require('../config/database');
  * -------------- POST ROUTES ----------------
  */
 
- router.post('/login', passport.authenticate('local'), (req, res) => {
+ router.post('/login', 
+  passport.authenticate('local'), 
+  //insert cookie middleware
+  (req, res) => {
   console.log('success')
+  console.log("req.session", req.session)
+  console.log("req.user", req.user)
+  // console.log("res", res)
   res.send("success");
 });
 
