@@ -74,10 +74,14 @@ const Login = (props) => {
               headers: {'Content-Type': 'application/json'},
               body: JSON.stringify(loginData),
             });
+            console.log(loginStatus)
             const parsedLoginStatus = await loginStatus.text()
             console.log(parsedLoginStatus); 
             if (parsedLoginStatus === 'success') {
               props.updateUserInfo({username: username, password: password, authenticated: true});
+              //attempt to persist state thru localStorage
+              window.localStorage.setItem('loggedIn', true);
+              console.log("this is windowLocalstorage: " , window.localStorage.getItem('loggedIn'))
               nav('/')
             } else {
               alert(`Invalid username ${username} and password ${password} - user not found`);
