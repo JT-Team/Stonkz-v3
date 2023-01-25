@@ -83,7 +83,33 @@ const Login = (props) => {
         <Button
           variant='contained'
           color ='success'
-          onClick={loginlogic}
+          onClick={async () => {
+            const url = 'http://localhost:3000/login'
+            const loginData = {username: username, password: password};
+            const loginStatus = await fetch(url, {
+              method: 'POST',
+              mode: 'cors',
+              headers: {'Content-Type': 'application/json'},
+              body: JSON.stringify(loginData),
+            });
+            console.log(loginStatus)
+            const parsedLoginStatus = await loginStatus.text()
+            console.log(parsedLoginStatus); 
+            if (parsedLoginStatus === 'success') {
+              props.updateUserInfo({username: username, password: password, authenticated: true});
+              //attempt to persist state thru localStorage
+              window.localStorage.setItem('loggedIn', true);
+              console.log("this is windowLocalstorage: " , window.localStorage.getItem('loggedIn'))
+              nav('/')
+            } else {
+              alert(`Invalid username ${username} and password ${password} - user not found`);
+              
+            }
+
+            updateUsername('');
+            updatePassword('');
+            console.log(props.userInfo);
+          }}
         >
           Login
         </Button>

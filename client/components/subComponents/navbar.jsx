@@ -12,6 +12,7 @@ const Navbar = () => {
         let response = await fetch('/user/logout')
         let data = await response.text()
         if (data === "success") {
+            window.localStorage.setItem('loggedIn', false)
             nav('/login')
         }
     }

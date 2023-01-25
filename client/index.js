@@ -14,7 +14,9 @@ const root = createRoot(rootElement);
 
 //creating a private routes wrapper that will aid in redirecting to the correct page (home or login page)
 const PrivateRoutes = (props) => {
-    let authentication = props.userInfo.authenticated;
+    console.log("this is windowLocalstorage in privateRoutes: " , window.localStorage.getItem('loggedIn'))
+    let authentication = props.userInfo.authenticated || window.localStorage.getItem('loggedIn')
+    // let authentication = window.loocalStorage.getItem('loggedIn')
     return (
         authentication ? <Outlet/> : <Navigate to = '/login'/>
     )
@@ -26,12 +28,15 @@ const App = () => {
   const [userInfo, updateUserInfo] = React.useState({username: undefined, password: undefined, authenticated: false}); 
   console.log('generating component from app');
 
-  useEffect(() => {
-    if (document.cookie) {
-      console.log('here')
-      updateUserInfo({ ...userInfo, authenticated: true})
-    }
-  }, [])
+  //set logged in to false initially
+
+//   useEffect(() => {
+//     console.log("in useEffect pre-cookie")
+//     if (document.cookie) {
+//       console.log('in useEffect and has document.cookie which is: ', document.cookie)
+//       updateUserInfo({...userInfo, authenticated : true}) //
+//     }
+//   }, [])
 
     return (
         <Provider store={store}>
