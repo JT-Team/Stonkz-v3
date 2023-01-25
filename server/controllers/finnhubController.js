@@ -3,20 +3,20 @@ const path = require('path')
 
 const finnhubController = {};
 
-finnhubController.getStockData = (req, res, next) => {
+finnhubController.getStockData = async (req, res, next) => {
+  try{
   const { ticker, start, now } = req.query;
-  fetch(`https://finnhub.io/api/v1/stock/candle?symbol=${ticker}&resolution=1&from=${start}&to=${now}&token=cf6a03aad3i9lmcgu910cf6a03aad3i9lmcgu91g`)
-  .then(data => data.json())
-  .then(data => {
-    res.locals.stockData = data;
-    return next();
-  })
-  .catch(err => {
-    next({
+  const data = await fetch(`https://finnhub.io/api/v1/stock/candle?symbol=${ticker}&resolution=1&from=${start}&to=${now}&token=cf6a03aad3i9lmcgu910cf6a03aad3i9lmcgu91g`)
+  const response = await data.json()
+    // console.log(response)
+    res.locals.stockData = response;
+    return next()
+}catch(err) {
+    return next({
       log: `finnhubController.getStockData: ERROR: ${err}`,
       message: { err:  'Error ocurred in finnhubController.getStockData. Check server logs for more details.'},
     });
-  })
+  }
 }
 
 finnhubController.getStockChange = (req, res, next) => {
@@ -28,7 +28,7 @@ finnhubController.getStockChange = (req, res, next) => {
     return next();
   })
   .catch(err => {
-    next({
+    return next({
       log: `finnhubController.getStockChange: ERROR: ${err}`,
       message: { err:  'Error ocurred in finnhubController.getStockChange. Check server logs for more details.'},
     });

@@ -48,6 +48,7 @@
     "@emotion/styled": "^11.10.5",
     "@mui/material": "^5.11.5",
     "@qognicafinance/react-lightweight-charts": "^1.0.5",
+    "@reduxjs/toolkit": "^1.9.1",
     "bcrypt": "^5.1.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",

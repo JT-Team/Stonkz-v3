@@ -9,7 +9,7 @@ const Navbar = () => {
 
     //when the logout button is clicked, brings you back to the main page
     const logout = async () => {
-        let response = await fetch('/logout')
+        let response = await fetch('/user/logout')
         let data = await response.text()
         if (data === "success") {
             window.localStorage.setItem('loggedIn', false)
