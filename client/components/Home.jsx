@@ -23,7 +23,6 @@ const Home = () => {
   // const [isLoading, setIsLoading] = useState(true)
   const [news, setNews] = useState([])
   const [pageIsVisible, setPageIsVisible] = useState(true)
-  
   useEffect(() => {
     //time for graph points
     const now = new Date();
@@ -59,16 +58,19 @@ const Home = () => {
       .catch((error) => {
         console.log(`fetchStockNews: unable to grab data from server- ${error}`)
       })
-  }, [])
+  }, [currStock])
 
   
   const fetchStockNews = async () => {
     try {
-      let response = await fetch(`https://stocknewsapi.com/api/v1?tickers=${currStock}&items=3&page=1&token=o2tzmxblhimm5ryj0kmzuiitetygsqpqg9qgivan`, {method:'GET', mode: 'no-cors'})
+      console.log(currStock)
+      let response = await fetch(`https://stocknewsapi.com/api/v1?tickers=${currStock}&items=3&page=1&token=zvn1tweid3qcqsneges4b8kdrogynutncnrmvnqr`, {method:'GET'})
       let data = await response.json()
+      console.log(data)
       return data
       }
     catch (error) {
+
       console.log('Error fetching news from api')
       }
     }
@@ -100,7 +102,7 @@ const Home = () => {
         { isLoading ? <div>Loading...</div> :         
         <PageVisibility onChange={handleVisibilityChange}>
           {pageIsVisible && (
-            <Ticker offset="run-in" speed={10} mode="chain">
+            <Ticker offset="run-in" speed={5} mode="chain">
               {({ index }) => (
                 <>
                   {boxes[index % 16]}

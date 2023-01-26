@@ -1,8 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit'
 
-export const stockSlice = createSlice({
-  name: 'stocks',
-  initialState: {
+const initialState = {
     currStock: 'AAPL',
     stockStore: {},
     currStockInfo: [],
@@ -12,7 +10,10 @@ export const stockSlice = createSlice({
     news: [],
     isLoading: true,
     pageIsVisible: true
-  },
+  }
+export const stockSlice = createSlice({
+  name: 'stocks',
+  initialState,
   reducers: {
     setStockInfo: (state, action) => {
       state.currStockInfo = action.payload;
@@ -83,6 +84,7 @@ export const fetchStockChange = ()=> {
 
   return async (dispatch, getState) =>{
     try {
+      console.log('run fetchStockChange')
       // get current stock target from the state
       const {currStock} = getState().stocks
 

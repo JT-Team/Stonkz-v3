@@ -1,4 +1,9 @@
 {
+    "RTX": "Raytheon Technologies Corp.",
+    "BA": "Boeing Co.",
+    "LMT":"Lockheed Martin Corp.",
+    "NOC": "Northrop Grumman Corp.",
+    "THLLY": "Thales S.A.",
     "AAPL": "Apple Inc",
     "ETSY":	"Etsy Inc",
     "PINS": "Pinterest Inc",
@@ -15,4 +20,5 @@
     "GME": "GameStop Corp.",
     "GOOG":	"Alphabet In Class C",
     "NFLX": "Netflix Inc"
+  
 }

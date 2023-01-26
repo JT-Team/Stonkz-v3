@@ -15,7 +15,7 @@ const root = createRoot(rootElement);
 //creating a private routes wrapper that will aid in redirecting to the correct page (home or login page)
 const PrivateRoutes = (props) => {
     console.log("this is windowLocalstorage in privateRoutes: " , window.localStorage.getItem('loggedIn'))
-    let authentication = props.userInfo.authenticated || window.localStorage.getItem('loggedIn')
+    let authentication =  window.localStorage.getItem('loggedIn')
     // let authentication = window.loocalStorage.getItem('loggedIn')
     return (
         authentication ? <Outlet/> : <Navigate to = '/login'/>

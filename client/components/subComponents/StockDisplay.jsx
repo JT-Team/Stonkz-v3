@@ -8,6 +8,7 @@ const StockDisplay = (props) => {
 
   useEffect(() => {
     //fetch current stock change info
+    console.log('ran')
     fetchStockChange().then(data => {
       setPriceChange(Math.round((data.c - data.o) * 100 ) / 100)
       setPercentChange(Math.round(data.dp * 100) / 100)
