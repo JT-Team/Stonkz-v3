@@ -34,18 +34,6 @@
 
 The backend is an Express server built on top of Node.js. It uses Mongoose as a database and Passport.js to handle authentication.
 
-#### Middleware In Use:
-**express** middleware:
-  - json()
-  - urlEncoded()
-  - static() (directing to client)
-**cookie-parser** - Parses cookies
-**cors** - Handles CORS requests
-**passport** - Handles login and auth
-**express-session** - Creates a session [we currently need to figure out how to save this session + authentication on the DB]
-
-
-
 #### Endpoints:
 
 **/api** `api.js`
@@ -76,17 +64,20 @@ The backend is an Express server built on top of Node.js. It uses Mongoose as a 
     - Triggered [when?]
     - Invokes the `req.logout` method and sends a success message if successful. [what is the `.logout` method?]
 
+#### Middleware In Use:
+**express** middleware:
+  - json()
+  - urlEncoded()
+  - static() (directing to client)
+**cookie-parser** - Parses cookies
+**cors** - Handles CORS requests
+**passport** - Handles login and auth
+**express-session** - Creates a session
 
 
+### Frontend Overview [may need updaing post-redux implementation]
 
-
-## Known bugs/quirks/fixes
-
-### Issues
-
-**Data does not render on load**: Go to your network tab in devtools, if the call to the `/api?[tickerInfo]` route is not responding, your problem is probably with your `node-fetch` module. Try deprecating your installed version of `node-fetch` to `node-fetch@2`.
-
-client/index.js
+#### client/index.js
   state:
     userInfo:{username ,password ,authenticated}
 
@@ -95,13 +86,13 @@ client/index.js
     privateRoutes: redirects the user depending on the authentication status
     login/signup: signup and login through this page if not logged in you will be redirected to this page
 
-
+  issues:
     [ ] : fix cookie problem with the login state on refresh
-    [ ] : privateRoutes: this does not work properly currently whenever refreshes the login state does not     persist. The problems suspected to be coming from cookies not persisting upon refreshing 
+    [ ] : privateRoutes: this does not work properly currently whenever refreshes the login state does not persist. The problems suspected to be coming from cookies not persisting upon refreshing 
     [ ] : login routes and signup routes can be joinned into one page with state distinguishing login state and signup state.
 
-client/login & signup:
-  used mui/material npm package to create compounents 
+#### client/login & signup:
+  uses mui/material npm package to create compounents 
   handles login and signup logic 
   requests are sent to server to handle encription
   state: 
@@ -112,7 +103,7 @@ client/login & signup:
   props:
     updateUserInfo: was used to update authentication state
 
-client/home.jsx
+#### client/home.jsx
   state:
      - currStock, setStock
      - stockStore, setStockStore
@@ -132,4 +123,13 @@ client/home.jsx
     - fetchStockChange
         - updates stockChange
         - updates priceChange
-        - 
+
+## Known bugs/quirks/fixes
+
+### Issues
+
+**Data does not render on load**: Go to your network tab in devtools, if the call to the `/api?[tickerInfo]` route is not responding, your problem is probably with your `node-fetch` module. Try deprecating your installed version of `node-fetch` to `node-fetch@2`.
+
+### Bugs
+
+**Reload auth logic**: Depending on setup, hitting reload while logged in the page will either kick you to the login screen OR not do so but expose the `/` route to anyone even if they are not logged in.
