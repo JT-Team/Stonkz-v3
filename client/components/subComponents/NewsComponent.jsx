@@ -6,9 +6,9 @@ import { useNavigate } from 'react-router-dom';
 const NewsComponent = (props) => {
 
   return (
-    props.news.map(object => {
+    props.news.map((object, i) => {
       return(
-        <div className='newsContainer'>
+        <div key={i} className='newsContainer'>
           <img className="news-img" src={object.image_url}></img>
           <div className="news-text-container">
             <a className="news-link" target="_blank" href={object.news_url}>{object.title}</a>
