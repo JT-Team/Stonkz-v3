@@ -1,4 +1,4 @@
-# Iteration Project
+# Investment learning platform for beginners
 
 ## Documentation
 
