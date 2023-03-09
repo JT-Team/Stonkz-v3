@@ -1,0 +1,12 @@
+import React, { Component, useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
+
+
+// stock finhub
+// stocknewsapi
+// mongo
+const Settings = () => {
+    // ???????????????????????????
+}
+
+export default Settings;
